@@ -9,37 +9,40 @@ typedef struct{
     int blue;
 } Color;
 
-int **getEmptyMat(void);
+int **getEmptyMat(int, int);
 void makeMat(char*, Color, Color);
 void draw(int**);
-void freeMat(int**);
+void freeMat(int**, int);
+void makeSpace(char*, Color);
 
 int main(void){
     Color white = { 255, 255, 255 };
     Color black = { 0, 0, 0 };
     makeMat("white.ppm", white, black);
     makeMat("black.ppm", black, white);
+    makeSpace("white_space.ppm", white);
+    makeSpace("black_space.ppm", black);
 
     return 0;
 }
 
-int **getEmptyMat(void){
+int **getEmptyMat(int width, int height){
     int i, j;
     int **table;
 
     table = (int**)malloc(sizeof(int*) * SIZE);
-    for(i = 0; i < SIZE; i++){
+    for(i = 0; i < height; i++){
         table[i] = (int*)malloc(sizeof(int) * SIZE);
-        for(j = 0; j < SIZE; j++){
+        for(j = 0; j < width; j++){
             table[i][j] = 0;
         }
     }
     return table;
 }
 
-void freeMat(int **table){
+void freeMat(int **table, int height){
     int i, j;
-    for(i = 0; i < SIZE; i++){
+    for(i = 0; i < height; i++){
         free(table[i]);
     }
     free(table);
@@ -78,22 +81,47 @@ void draw(int **table){
 void makeMat(char *path, Color plain, Color color){
     int i, j;
     int **table;
+    int width, height;
     FILE *fp;
 
-    table = getEmptyMat();
+    width = SIZE;
+    height = SIZE;
+
+    table = getEmptyMat(width, height);
     draw(table);
 
     fp = fopen(path, "w");
     fprintf(fp, "P3\n");
-    fprintf(fp, "%d %d\n", SIZE, SIZE);
+    fprintf(fp, "%d %d\n", width, height);
     fprintf(fp, "255\n");
-    for(i = 0; i < SIZE; i++){
-        for(j = 0; j < SIZE; j++){
+    for(i = 0; i < height; i++){
+        for(j = 0; j < width; j++){
             if(table[i][j] == 0){
                 fprintf(fp, "%d %d %d\n", plain.red, plain.green, plain.blue);
             }else{
                 fprintf(fp, "%d %d %d\n", color.red, color.green, color.blue);
             }
+        }
+    }
+    fclose(fp);
+    freeMat(table, height);
+}
+
+void makeSpace(char *path, Color color){
+    int i, j;
+    int width, height;
+    FILE *fp;
+
+    width = SIZE / 2;
+    height = SIZE;
+
+    fp = fopen(path, "w");
+    fprintf(fp, "P3\n");
+    fprintf(fp, "%d %d\n", width, height);
+    fprintf(fp, "255\n");
+    for(i = 0; i < height; i++){
+        for(j = 0; j < width; j++){
+            fprintf(fp, "%d %d %d\n", color.red, color.green, color.blue);
         }
     }
     fclose(fp);
