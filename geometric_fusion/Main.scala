@@ -1,7 +1,7 @@
 object Main {
     def main(args: Array[String]) {
-        val width = 1024
-        val height = 1024
+        val width = 256
+        val height = 256
 
         println("P3")
         println("%d %d".format(width, height))
@@ -32,7 +32,7 @@ object Function {
     // 0 <= z <= 1
 
     def f1(p: Point): Double = {
-        ((10 * (p.x + p.y)).toInt % 2).toDouble
+        ((10 * (p.x + p.y).abs).toInt % 2).toDouble
     }
 
     def f2(p: Point): Double = {
