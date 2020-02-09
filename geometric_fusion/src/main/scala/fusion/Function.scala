@@ -1,4 +1,4 @@
-package src
+package fusion
 
 object Function {
     val e = 1.0

@@ -1,4 +1,4 @@
-package src
+package fusion
 
 case class Color(r: Int, g: Int, b: Int) {
     def +(that: Color): Color = {
