@@ -1,6 +1,7 @@
 package fusion
 
 object Function {
+
     val e = 1.0
 
     // (x, y) => (x, y)
