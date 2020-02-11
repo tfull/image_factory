@@ -29,16 +29,5 @@ object Function {
         (p.x * p.x + p.y * p.y - e).abs
     }
 
-    val array: Array[Point => Double] = Array(f1 _, f2 _)
-
-    // color => color
-    // 0 <= color <= 1
-
-    def c1(x: Double): Double = {
-        1 - x
-    }
-
-    def c2(x: Double): Double = {
-        x / 2 + 0.5
-    }
+    val at: Array[Point => Double] = Array(f1 _, f2 _)
 }

@@ -10,6 +10,7 @@ import fusion.Function
 object Brand {
 
     def main(args: Array[String]) {
+        /*
         val time_s = "brand_%tY%<tm%<td_%<tH%<tM%<tS_%<tL".format(new Date())
         val out = new PrintWriter("images/ppm/" + time_s + ".ppm")
 
@@ -37,6 +38,8 @@ object Brand {
         }
 
         out.flush()
+        */
+        println("not implemented")
     }
 
 }
