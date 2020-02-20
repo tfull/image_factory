@@ -20,10 +20,12 @@ object Grid {
         out.println("%d %d".format(width, height))
         out.println(255)
 
+        val e = Constant.unit_value
+
         for (i <- 0 until height) {
             for (j <- 0 until width) {
-                val x = - 1.0 + (2.0 / width.toDouble) * j + (1.0 / width.toDouble)
-                val y = 1.0 - (2.0 / height.toDouble) * i - (1.0 / height.toDouble)
+                val x = - e + (2.0 * e / width.toDouble) * j + (e / width.toDouble)
+                val y = e - (2.0 * e / height.toDouble) * i - (e / height.toDouble)
                 var p = Point(x, y)
 
                 for (f_i <- transformers) {

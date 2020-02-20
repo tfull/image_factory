@@ -2,8 +2,6 @@ package fusion
 
 object Transformer {
 
-    val e = 1.0
-
     def horizontalInversion(p: Point): Point = {
         val x = - p.x
         val y = p.y
@@ -18,17 +16,18 @@ object Transformer {
         Point(x, y)
     }
 
-    // (x, y) => (x, y)
-    /*
     def grid(p: Point): Point = {
         val k = 10
-        val w = k.toDouble
+        val u = Constant.unit_value
+        val big_unit = 100.0
 
-        val p_low = (0 until k).map( i =>  -e + 2.0 * e / w * i ).filter()
-        p_low
+        val inside_x = (p.x + big_unit * u) % (2 * u / k.toDouble)
+        val inside_y = (p.y + big_unit * u) % (2 * u / k.toDouble)
+
+
+        Point(- u + inside_x * k.toDouble, - u + inside_y * k.toDouble)
     }
-    */
 
-    val at = Array(horizontalInversion _, verticalInversion _)
+    val at = Array(horizontalInversion _, verticalInversion _, grid _)
 
 }

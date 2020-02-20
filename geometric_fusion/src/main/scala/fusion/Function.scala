@@ -2,7 +2,15 @@ package fusion
 
 object Function {
 
-    val e = 1.0
+    def clip(v: Double): Double = {
+        if (v < 0.0) {
+            0.0
+        } else if (v > 1.0) {
+            1.0
+        } else {
+            v
+        }
+    }
 
     // (x, y) => (x, y)
     /*
@@ -15,19 +23,17 @@ object Function {
     }
     */
 
+    def diagonalLines(p: Point): Double = {
+        val big_u = 100.0 * Constant.unit_value
 
-    // (x, y) => z
-    // -1 <= x <= -1
-    // -1 <= y <= -1
-    // 0 <= z <= 1
-
-    def f1(p: Point): Double = {
-        ((10 * (p.x + p.y).abs).toInt % 2).toDouble
+        clip(((10 * (p.x + p.y + big_u)).toInt % 2).toDouble)
     }
 
-    def f2(p: Point): Double = {
-        (p.x * p.x + p.y * p.y - e).abs
+    def circle(p: Point): Double = {
+        val u = Constant.unit_value
+
+        clip((p.x * p.x + p.y * p.y - u).abs / u)
     }
 
-    val at: Array[Point => Double] = Array(f1 _, f2 _)
+    val at: Array[Point => Double] = Array(diagonalLines _, circle _)
 }
